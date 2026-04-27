@@ -39,10 +39,10 @@
 npm link
 
 # In another project
-npm link use-ph-location
+npm link @joemark0008/use-ph-location
 
 # Test importing
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 ```
 
 ### Build Verification
@@ -65,15 +65,15 @@ Before publishing, update these files:
 1. **package.json** - Update repository and author info
    ```json
    {
-     "name": "use-ph-location",
+     "name": "@joemark0008/use-ph-location",
      "version": "1.0.0",
-     "author": "Your Name <your.email@example.com>",
+     "author": "JOE MARK GIMENO",
      "repository": {
        "type": "git",
-       "url": "https://github.com/yourusername/use-ph-location"
+       "url": "https://github.com/joemark0008/use-ph-location.git"
      },
      "bugs": {
-       "url": "https://github.com/yourusername/use-ph-location/issues"
+       "url": "https://github.com/joemark0008/use-ph-location/issues"
      }
    }
    ```
@@ -105,7 +105,7 @@ npm login
 npm publish
 
 # Verify
-npm info use-ph-location
+npm info @joemark0008/use-ph-location
 ```
 
 ### Step 3: Post-Publish
@@ -268,8 +268,8 @@ jobs:
 
 ## Support After Publishing
 
-- Monitor npm downloads: https://npm-stat.com/charts.html?package=use-ph-location
-- Check package health: https://snyk.io/advisor/npm-package/use-ph-location
+- Monitor npm downloads: https://npm-stat.com/charts.html?package=@joemark0008/use-ph-location
+- Check package health: https://snyk.io/advisor/npm-package/@joemark0008/use-ph-location
 - Update regularly with bug fixes and features
 - Maintain documentation
 
