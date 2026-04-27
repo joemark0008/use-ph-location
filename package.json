@@ -1,14 +1,12 @@
 {
-  "name": "use-ph-location",
+  "name": "@joemark0008/use-ph-location",
   "version": "1.0.0",
   "description": "React hook for Philippine location selection with region, province, city/municipality, and barangay data",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src",
-    "data"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
@@ -50,10 +48,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/use-ph-location"
+    "url": "https://github.com/joemark0008/use-ph-location.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/use-ph-location/issues"
+    "url": "https://github.com/joemark0008/use-ph-location/issues"
   },
-  "homepage": "https://github.com/yourusername/use-ph-location#readme"
+  "homepage": "https://github.com/joemark0008/use-ph-location#readme"
 }
