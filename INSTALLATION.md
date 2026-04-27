@@ -4,17 +4,17 @@
 
 ### npm
 ```bash
-npm install use-ph-location
+npm install @joemark0008/use-ph-location
 ```
 
 ### yarn
 ```bash
-yarn add use-ph-location
+yarn add @joemark0008/use-ph-location
 ```
 
 ### pnpm
 ```bash
-pnpm add use-ph-location
+pnpm add @joemark0008/use-ph-location
 ```
 
 ## Requirements
@@ -35,7 +35,7 @@ npm install react
 ### 1. Basic Usage
 
 ```tsx
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 import { useState } from 'react';
 
 function MyComponent() {
@@ -101,12 +101,12 @@ interface UsePhLocationConfig {
 
 ### ES6 Modules
 ```tsx
-import { usePhLocation, Region, Province, City, Barangay } from 'use-ph-location';
+import { usePhLocation, Region, Province, City, Barangay } from '@joemark0008/use-ph-location';
 ```
 
 ### CommonJS
 ```javascript
-const { usePhLocation } = require('use-ph-location');
+const { usePhLocation } = require('@joemark0008/use-ph-location');
 ```
 
 ## TypeScript Setup
@@ -137,7 +137,7 @@ npm install use-ph-location
 // components/LocationSelector.tsx
 'use client'; // If using App Router
 
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 import { useState } from 'react';
 
 export function LocationSelector() {
@@ -163,12 +163,12 @@ export function LocationSelector() {
 
 1. Install:
 ```bash
-npm install use-ph-location
+npm install @joemark0008/use-ph-location
 ```
 
 2. Use in your component:
 ```tsx
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 
 function App() {
   const { regions, loading } = usePhLocation();

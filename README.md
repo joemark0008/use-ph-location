@@ -234,7 +234,7 @@ interface Barangay {
 ### Example 1: Basic Usage
 
 ```tsx
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 
 function App() {
   const { regions, loading } = usePhLocation();
@@ -265,7 +265,7 @@ const { regions, provinces, loading, error } = usePhLocation({
 ### Example 3: Controlled Component
 
 ```tsx
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 import { useState } from 'react';
 
 function AddressForm() {
@@ -520,7 +520,7 @@ import {
   Barangay,
   UsePhLocationReturn,
   UsePhLocationConfig,
-} from 'use-ph-location';
+} from '@joemark0008/use-ph-location';
 ```
 
 ## Contributing
