@@ -1,10 +1,16 @@
 {
   "name": "@joemark0008/use-ph-location",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "React hook for Philippine location selection with region, province, city/municipality, and barangay data",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],

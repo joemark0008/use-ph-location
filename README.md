@@ -29,7 +29,7 @@ pnpm add use-ph-location
 ## Quick Start
 
 ```tsx
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 
 function LocationSelector() {
   const {
@@ -320,7 +320,7 @@ function AddressForm() {
 ### Example 4: React Hook Form Integration
 
 ```tsx
-import { usePhLocation } from 'use-ph-location';
+import { usePhLocation } from '@joemark0008/use-ph-location';
 import { useForm, Controller } from 'react-hook-form';
 
 function RegistrationForm() {
@@ -365,6 +365,125 @@ function RegistrationForm() {
   );
 }
 ```
+
+### Example 5: Complete Cascading Dropdowns (Region → Province → City → Barangay)
+
+```tsx
+import { useState } from 'react';
+import { usePhLocation } from '@joemark0008/use-ph-location';
+
+export default function AddressForm() {
+  const {
+    regions,
+    getProvincesByRegion,
+    getCitiesByProvince,
+    getBarangaysByCity,
+    loading,
+    error,
+  } = usePhLocation();
+
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedBarangay, setSelectedBarangay] = useState('');
+
+  const provinceList = selectedRegion ? getProvincesByRegion(selectedRegion) : [];
+  const cityList = selectedProvince ? getCitiesByProvince(selectedProvince) : [];
+  const barangayList = selectedCity ? getBarangaysByCity(selectedCity) : [];
+
+  const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRegion(e.target.value);
+    setSelectedProvince('');
+    setSelectedCity('');
+    setSelectedBarangay('');
+  };
+
+  const handleProvinceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedProvince(e.target.value);
+    setSelectedCity('');
+    setSelectedBarangay('');
+  };
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCity(e.target.value);
+    setSelectedBarangay('');
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div>
+      <div>
+        <label>Region:</label>
+        <select value={selectedRegion} onChange={handleRegionChange}>
+          <option value="">Select Region</option>
+          {regions.map((r) => (
+            <option key={r.region_code} value={r.region_code}>
+              {r.region_name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label>Province:</label>
+        <select value={selectedProvince} onChange={handleProvinceChange} disabled={!selectedRegion}>
+          <option value="">Select Province</option>
+          {provinceList.map((p) => (
+            <option key={p.province_code} value={p.province_code}>
+              {p.province_name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label>City/Municipality:</label>
+        <select value={selectedCity} onChange={handleCityChange} disabled={!selectedProvince}>
+          <option value="">Select City</option>
+          {cityList.map((c) => (
+            <option key={c.city_code} value={c.city_code}>
+              {c.city_name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label>Barangay:</label>
+        <select value={selectedBarangay} onChange={handleCityChange} disabled={!selectedCity}>
+          <option value="">Select Barangay</option>
+          {barangayList.map((b) => (
+            <option key={b.brgy_code} value={b.brgy_code}>
+              {b.brgy_name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {selectedBarangay && (
+        <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f0f0f0' }}>
+          <strong>Selected Address:</strong>
+          <p>
+            {barangayList.find(b => b.brgy_code === selectedBarangay)?.brgy_name}
+            {' '}({cityList.find(c => c.city_code === selectedCity)?.city_name}),{' '}
+            {provinceList.find(p => p.province_code === selectedProvince)?.province_name},{' '}
+            {regions.find(r => r.region_code === selectedRegion)?.region_name}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+**Key Features in this example:**
+- ✅ All 4 dropdown levels: Region → Province → City → Barangay
+- ✅ Automatic reset of dependent fields when parent changes
+- ✅ Disabled states for cascading behavior
+- ✅ Summary display of selected address
+- ✅ Complete hierarchy path shown to user
 
 ## Performance
 
