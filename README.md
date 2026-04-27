@@ -253,7 +253,158 @@ function App() {
 }
 ```
 
-### Example 2: Using Remote Data Source
+### Example 2: Quick Start with Styled Output
+
+Complete cascading dropdowns with inline CSS and address display:
+
+```tsx
+import { useState } from 'react';
+import { usePhLocation } from '@joemark0008/use-ph-location';
+
+export default function AddressForm() {
+  const {
+    regions,
+    getProvincesByRegion,
+    getCitiesByProvince,
+    getBarangaysByCity,
+  } = usePhLocation();
+
+  const [region, setRegion] = useState('');
+  const [province, setProvince] = useState('');
+  const [city, setCity] = useState('');
+  const [barangay, setBarangay] = useState('');
+
+  const provinceList = region ? getProvincesByRegion(region) : [];
+  const cityList = province ? getCitiesByProvince(province) : [];
+  const barangayList = city ? getBarangaysByCity(city) : [];
+
+  const selectedRegionName = regions.find(r => r.region_code === region)?.region_name || '';
+  const selectedProvinceName = provinceList.find(p => p.province_code === province)?.province_name || '';
+  const selectedCityName = cityList.find(c => c.city_code === city)?.city_name || '';
+  const selectedBarangayName = barangayList.find(b => b.brgy_code === barangay)?.brgy_name || '';
+
+  return (
+    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', fontFamily: 'system-ui' }}>
+      <h1 style={{ marginBottom: '30px' }}>Philippine Address Selector</h1>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '30px' }}>
+        <select
+          value={region}
+          onChange={(e) => {
+            setRegion(e.target.value);
+            setProvince('');
+            setCity('');
+            setBarangay('');
+          }}
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '1px solid #ddd',
+            fontSize: '14px',
+          }}
+        >
+          <option value="">Select Region</option>
+          {regions.map((r) => (
+            <option key={r.region_code} value={r.region_code}>
+              {r.region_name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={province}
+          onChange={(e) => {
+            setProvince(e.target.value);
+            setCity('');
+            setBarangay('');
+          }}
+          disabled={!region}
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '1px solid #ddd',
+            fontSize: '14px',
+            opacity: region ? 1 : 0.6,
+            cursor: region ? 'pointer' : 'not-allowed',
+          }}
+        >
+          <option value="">Select Province</option>
+          {provinceList.map((p) => (
+            <option key={p.province_code} value={p.province_code}>
+              {p.province_name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={city}
+          onChange={(e) => {
+            setCity(e.target.value);
+            setBarangay('');
+          }}
+          disabled={!province}
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '1px solid #ddd',
+            fontSize: '14px',
+            opacity: province ? 1 : 0.6,
+            cursor: province ? 'pointer' : 'not-allowed',
+          }}
+        >
+          <option value="">Select City</option>
+          {cityList.map((c) => (
+            <option key={c.city_code} value={c.city_code}>
+              {c.city_name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={barangay}
+          onChange={(e) => setBarangay(e.target.value)}
+          disabled={!city}
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '1px solid #ddd',
+            fontSize: '14px',
+            opacity: city ? 1 : 0.6,
+            cursor: city ? 'pointer' : 'not-allowed',
+          }}
+        >
+          <option value="">Select Barangay</option>
+          {barangayList.map((b) => (
+            <option key={b.brgy_code} value={b.brgy_code}>
+              {b.brgy_name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {barangay && (
+        <div style={{ backgroundColor: '#e8f5e9', padding: '20px', borderRadius: '8px', borderLeft: '5px solid #4caf50' }}>
+          <h3 style={{ margin: '0 0 10px 0', color: '#2e7d32' }}>Complete Address</h3>
+          <p style={{ fontSize: '18px', fontWeight: '600', color: '#1b5e20', margin: '0' }}>
+            {selectedBarangayName}, {selectedCityName}
+            <br />
+            {selectedProvinceName}, {selectedRegionName}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+**Example Output:**
+```
+Complete Address
+Banaban, Angat
+Bulacan, Region III (Central Luzon)
+```
+
+### Example 3: Using Remote Data Source
 
 ```tsx
 const { regions, provinces, loading, error } = usePhLocation({
